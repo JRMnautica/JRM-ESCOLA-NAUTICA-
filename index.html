@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JRM - Assessoria e Escola Náutica</title>
+  <style>
+    /* Reset básico */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: #f9fbfe;
+      color: #003366;
+      scroll-behavior: smooth;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    header {
+      background: linear-gradient(90deg, #004080, #0066cc);
+      color: #fff;
+      padding: 2rem 1rem;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.75rem;
+      letter-spacing: 2px;
+    }
+    header p {
+      margin-top: 0.5rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      user-select: text;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      background-color: #003366;
+      padding: 1rem 0;
+      position: sticky;
+      top: 72px; /* Altura do header */
+      z-index: 9998;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    nav a:hover, nav a:focus {
+      background-color: #0059b3;
+      outline: none;
+    }
+    main {
+      max-width: 1100px;
+      margin: 3rem auto 5rem;
+      padding: 0 1rem;
+    }
+    section {
+      margin-bottom: 5rem;
+    }
+    h2 {
+      border-bottom: 4px solid #0059b3;
+      padding-bottom: 0.5rem;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+    p, ul {
+      font-size: 1.15rem;
+      max-width: 900px;
+    }
+    ul {
+      padding-left: 1.25rem;
+    }
+    ul li {
+      margin-bottom: 0.8rem;
+    }
+    /* Imagens */
+    .image-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+    .image-gallery img {
+      width: 320px;
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.12);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .image-gallery img:hover, .image-gallery img:focus {
+      transform: scale(1.05);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+      outline: none;
+    }
+    /* Formulário */
+    form {
+      max-width: 600px;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+      margin: 0 auto;
+    }
+    form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      border: 2px solid #0059b3;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+    }
+    form input:focus, form textarea:focus {
+      border-color: #0073e6;
+      outline: none;
+    }
+    form button {
+      background-color: #0059b3;
+      color: white;
+      font-weight: 700;
+      font-size: 1.15rem;
+      padding: 0.85rem 2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    form button:hover, form button:focus {
+      background-color: #0073e6;
+      outline: none;
+    }
+    /* Mapa */
+    .map-wrapper {
+      max-width: 700px;
+      margin: 2rem auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+    }
+    /* Simulado */
+    #simulado {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .question {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.8rem;
+      transition: background-color 0.3s ease;
+    }
+    .question h3 {
+      margin: 0 0 1rem;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #003366;
+    }
+    .answers label {
+      display: block;
+      margin-bottom: 0.8rem;
+      cursor: pointer;
+      font-size: 1.1rem;
+      user-select: none;
+      padding-left: 30px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .answers label input[type="radio"] {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+    }
+    .answers label:hover {
+      color: #0059b3;
+    }
+    #submit-quiz {
+      display: block;
+      margin: 2rem auto;
+      background-color: #0059b3;
+      color: white;
+      font-weight: 700;
+      border: none;
+      padding: 1rem 3rem;
+      font-size: 1.25rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    #submit-quiz:disabled {
+      background-color: #7a9fcc;
+      cursor: not-allowed;
+    }
+    #submit-quiz:hover:not(:disabled), #submit-quiz:focus:not(:disabled) {
+      background-color: #0073e6;
+      outline: none;
+    }
+    #result {
+      max-width: 900px;
+      margin: 2rem auto 4rem;
+      font-size: 1.3rem;
+      text-align: center;
+      font-weight: 700;
+    }
+    .correct {
+      color: green;
+    }
+    .wrong {
+      color: red;
+    }
+    .feedback {
+      margin-top: 8px;
+      font-size: 1rem;
+    }
+    /* Responsivo */
+    @media (max-width: 768px) {
+      nav {
+        gap: 12px;
+      }
+      .image-gallery img {
+        width: 100%;
+        max-width: 100%;
+      }
+      form {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>JRM - Assessoria e Escola Náutica</h1>
+    <p>Contato: +55 43 99690-0038</p>
+  </header>
+
+  <nav>
+    <a href="#home" tabindex="1">Home</a>
+    <a href="#sobre" tabindex="2">Sobre Nós</a>
+    <a href="#servicos" tabindex="3">Serviços</a>
+    <a href="#contato" tabindex="4">Contato</a>
+    <a href="#simulado" tabindex="5">Simulado</a>
+  </nav>
+
+  <main>
+    <section id="home" tabindex="-1">
+      <h2>Bem-vindo à JRM</h2>
+      <p>Somos especialistas em cursos náuticos, habilitação, documentação e muito mais. Navegue com segurança e confiança!</p>
+      <div class="image-gallery" aria-label="Galeria de imagens">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Pessoa aprendendo navegação" tabindex="0" />
+        <img src="https://images.unsplash.com/photo-1502920514310-64d9645f63f7?auto=format&fit=crop&w=600&q=80" alt="Embarcação navegando em mar calmo" tabindex="0" />
+        <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" alt="Mapa náutico com bússola" tabindex="0" />
+      </div>
+    </section>
+
+    <section id="sobre" tabindex="-1">
+      <h2>Sobre Nós</h2>
+      <p>A JRM é uma escola náutica dedicada a formar profissionais capacitados para o mercado náutico. Com equipe experiente e estrutura completa, oferecemos cursos de Arrais Amador, Motonauta, Capitão e muito mais.</p>
+    </section>
+
+    <section id="servicos" tabindex="-1">
+      <h2>Serviços</h2>
+      <ul>
+        <li>Emissão de habilitação náutica</li>
+        <li>Renovação e transferência de documentos</li>
+        <li>Cursos teóricos e práticos</li>
+        <li>Assessoria para documentação de embarcações</li>
+      </ul>
+    </section>
+
+    <section id="contato" tabindex="-1">
+      <h2>Contato</h2>
+      <p><strong>Telefone:</strong> +55 43 99690-0038</p>
+      <p><strong>Email:</strong> contato@jrmnautica.com.br</p>
+      <p><strong>Endereço:</strong> Rua Presidente Dutra, Vitória Régia 02, Cornélio Procópio - PR</p>
+      <div class="map-wrapper" aria-label="Mapa de localização da JRM - Assessoria e Escola Náutica">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.184765797183!2d-50.66224538447709!3d-23.17686306795074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94e59a52f76a96f5%3A0x9b5652434904e8ae!2sRua%20Presidente%20Dutra%2C%20Corn%C3%A9lio%20Proc%C3%B3pio%20-%20PR%2C%20Brasil!5e0!3m2!1spt-BR!2sus!4v1690176930413!5m2!1spt-BR!2sus"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa - JRM Assessoria e Escola Náutica"
+        ></iframe>
+      </div>
+      <form id="contact-form" aria-label="Formulário de contato da JRM - Assessoria e Escola Náutica">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" placeholder="Seu nome" required aria-required="true" />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required aria-required="true" />
+
+        <label for="mensagem">Mensagem:</label>
+        <textarea id="mensagem" name="mensagem" rows="5" placeholder="Escreva sua mensagem aqui..." required aria-required="true"></textarea>
+
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+
+    <section id="simulado" tabindex="-1" aria-label="Simulado de conhecimentos náuticos da JRM">
+      <h2>Simulado Náutico</h2>
+      <div id="quiz-container" role="list"></div>
+      <button id="submit-quiz" aria-label="Finalizar o simulado">Finalizar Simulado</button>
+      <div id="result" role="region" aria-live="polite" tabindex="0"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p style="text-align:center; padding:1rem 0; font-size:0.9rem; color:#555;">
+      © 2025 JRM - Assessoria e Escola Náutica | Todos os direitos reservados.
+    </p>
+  </footer>
+
+  <script>
+    // Simulado - 40 questões de exemplo
+    const questions = [
+      {
+        question: "Qual a principal função do colete salva-vidas?",
+        options: [
+          "Garantir conforto durante a navegação",
+          "Auxiliar na flutuação em caso de queda na água",
+          "Aumentar a velocidade da embarcação",
+          "Substituir o equipamento de navegação"
+        ],
+        answer: 1
+      },
+      {
+        question: "Qual a velocidade máxima permitida em áreas de balneário?",
+        options: [
+          "5 nós",
+          "10 nós",
+          "15 nós",
+          "20 nós"
+        ],
+        answer: 0
+      },
+      {
+        question: "O que significa o sinal sonoro de um apito curto na navegação?",
+        options: [
+          "Indica que a embarcação está manobrando para bombordo",
+          "Sinal de perigo",
+          "Sinal para atracar",
+          "Indica que a embarcação está manobrando para estibordo"
+        ],
+        answer: 3
+      },
+      // Adicione mais perguntas aqui. Para o exemplo, repetiremos para completar 40
+    ];
+    // Repetir perguntas para completar 40
+    while (questions.length < 40) {
+      questions.push(...questions.slice(0, 3));
+    }
+    questions.length = 40;
+
+    const quizContainer = document.getElementById('quiz-container');
+    const submitBtn = document.getElementById('submit-quiz');
+    const resultDiv = document.getElementById('result');
+
+    function buildQuiz() {
+      const output = [];
+      questions.forEach((q, index) => {
+        const optionsHtml = q.options.map((opt, i) => 
+          `<label>
+            <input type="radio" name="question${index}" value="${i}" aria-describedby="feedback${index}" />
+            ${opt}
+          </label>`
+        ).join('');
+        output.push(`
+          <div class="question" role="listitem" aria-labelledby="question-text-${index}">
+            <h3 id="question-text-${index}">Questão ${index + 1}:</h3>
+            <p>${q.question}</p>
+            <div class="answers">${optionsHtml}</div>
+            <div class="feedback" id="feedback${index}" aria-live="polite"></div>
+          </div>
+        `);
+      });
+      quizContainer.innerHTML = output.join('');
+    }
+
+    function showResults() {
+      let correctCount = 0;
+      questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name=question${index}]:checked`);
+        const feedbackEl = document.getElementById(`feedback${index}`);
+        if (selected) {
+          const answer = parseInt(selected.value, 10);
+          if (answer === q.answer) {
+            correctCount++;
+            feedbackEl.innerHTML = '<span class="correct">Correto!</span>';
+          } else {
+            feedbackEl.innerHTML = `<span class="wrong">Errado! Resposta correta: ${q.options[q.answer]}</span>`;
+          }
+        } else {
+          feedbackEl.innerHTML = '<span class="wrong">Você não respondeu esta questão.</span>';
+        }
+      });
+      resultDiv.innerHTML = `Você acertou <strong>${correctCount}</strong> de <strong>${questions.length}</strong> questões.`;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Simulado Finalizado';
+      submitBtn.setAttribute('aria-disabled', 'true');
+      resultDiv.focus();
+    }
+
+    // Formulário de contato (simulação)
+    const contactForm = document.getElementById('contact-form');
+    contactForm.addEventListener('submit', e => {
+      e.preventDefault();
+      alert('Mensagem enviada! Obrigado por entrar em contato.');
+      contactForm.reset();
+    });
+
+    submitBtn.addEventListener('click', showResults);
+
+    buildQuiz();
+  </script>
+</body>
+</html>
